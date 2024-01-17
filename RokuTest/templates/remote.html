@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Roku Remote Control</title>
+</head>
+<body>
+    <h1>Roku Remote Control</h1>
+    <div class="remote-container">
+        <button class="button power-button" data-command="power">Power</button>
+        <br><br><br>
+        <div class="button-row">
+            <button class="button back-button" data-command="back">Back</button>
+            <button class="button home-button" data-command="home">Home</button>
+        </div>
+        <br><br>
+        <button class="button up-button" data-command="up">Up</button>
+        <div class="button-row">
+            <button class="button left-button" data-command="left">Left</button>
+            <button class="button ok-button" data-command="select">OK</button>
+            <button class="button right-button" data-command="right">Right</button>
+        </div>
+        <button class="button down-button" data-command="down">Down</button>
+        <br><br>
+        <div class="button-row">
+            <button class="button rewind-button" data-command="rewind">RW</button>
+            <button class="button play-button" data-command="play">Play/Pause</button>
+            <button class="button forward-button" data-command="fastforward">FF</button>
+        </div>
+        <div class="feedback-message" id="feedback-message"></div>
+        <a class="device-link" href="/">Back to Device Selection</a>
+    </div>
+
+    <script>
+        // Function to send command to Roku device
+        function sendCommand(command) {
+            const ipAddress = '192.168.110.16'; // Replace with the IP address of your Roku device
+            fetch(`http://${ipAddress}:8060/keypress/${command}`, {
+                method: 'POST',
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log(`Command '${command}' sent successfully!`);
+                } else {
+                    console.error(`Failed to send command '${command}'. Response code: ${response.status}`);
+                }
+            })
+            .catch(error => {
+                console.error(`Error: ${error}`);
+            });
+        }
+
+        // Add event listeners to buttons
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('click', () => {
+                const command = button.getAttribute('data-command');
+                sendCommand(command);
+            });
+        });
+
+        // Add keyboard event listeners
+        document.addEventListener('keydown', event => {
+            switch (event.key.toLowerCase()) {
+                case 'w':
+                    sendCommand('up');
+                    break;
+                case 's':
+                    sendCommand('down');
+                    break;
+                case 'a':
+                    sendCommand('left');
+                    break;
+                case 'd':
+                    sendCommand('right');
+                    break;
+                case 'f':
+                    sendCommand('select');
+                    break;
+                case '1':
+                    sendCommand('volumemute');
+                    break;
+                case '2':
+                    sendCommand('volumedown');
+                    break;
+                case '3':
+                    sendCommand('volumeup');
+                    break;
+                case 'q':
+                    sendCommand('back');
+                    break;
+                default:
+                    break;
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roku Device Discovery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Roku Device Discovery</h1>
+    <div class="remote-container">
+        <form method="post">
+            <div class="button-row">
+                <button type="submit" class="button ok-button">Discover Roku Devices</button>
+            </div>
+            <br><br>
+            <div id="scanning-message" class="feedback-message" style="display: none;">Scanning for devices...</div>
+        </form>
+        <br><br>
+        <a class="device-link" href="/">Back to Device Selection</a>
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        const scanningMessage = document.getElementById('scanning-message');
+
+        form.addEventListener('submit', function() {
+            scanningMessage.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

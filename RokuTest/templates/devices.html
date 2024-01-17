@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roku Devices</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .device-item {
+            text-decoration: none;
+            color: white;
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            padding: 10px 20px; /* Symmetric horizontal padding */
+            height: 40px; /* Fixed height for consistency */
+        }
+    </style>
+</head>
+<body>
+    <h1>Roku Devices</h1>
+    <div class="remote-container">
+        <ul style="list-style-type: none; padding: 0;">
+            {% for device in devices %}
+                <li class="button-row" style="margin-bottom: 10px;">
+                    <a class="button ok-button device-item" href="/remote/{{ device }}">
+                        {{ device }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <a class="device-link" href="/">Back to Device Selection</a>
+    </div>
+</body>
+</html>
