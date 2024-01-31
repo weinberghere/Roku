@@ -10,42 +10,69 @@
 <body>
     <h1>Roku Remote Control</h1>
     <div class="remote-container">
-        <button class="button power-button" data-command="power">Power</button>
+        <button class="button power-button" data-command="keypress/power">Power</button>
         <br><br><br>
         <div class="button-row">
-            <button class="button back-button" data-command="back">Back</button>
-            <button class="button home-button" data-command="home">Home</button>
+            <button class="button back-button" data-command="keypress/back">Back</button>
+            <button class="button home-button" data-command="keypress/home">Home</button>
         </div>
         <br><br>
-        <button class="button up-button" data-command="up">Up</button>
+        <button class="button up-button" data-command="keypress/up">Up</button>
         <div class="button-row">
-            <button class="button left-button" data-command="left">Left</button>
-            <button class="button ok-button" data-command="select">OK</button>
-            <button class="button right-button" data-command="right">Right</button>
+            <button class="button left-button" data-command="keypress/left">Left</button>
+            <button class="button ok-button" data-command="keypress/select">OK</button>
+            <button class="button right-button" data-command="keypress/right">Right</button>
         </div>
-        <button class="button down-button" data-command="down">Down</button>
+        <button class="button down-button" data-command="keypress/down">Down</button>
         <br><br>
         <div class="button-row">
-            <button class="button rewind-button" data-command="rewind">RW</button>
-            <button class="button play-button" data-command="play">Play/Pause</button>
-            <button class="button forward-button" data-command="fastforward">FF</button>
+            <button class="button rewind-button" data-command="keypress/rewind">RW</button>
+            <button class="button play-button" data-command="keypress/play">PP</button>
+            <button class="button forward-button" data-command="keypress/fastforward">FF</button>
+        </div>
+        <div class="button-row">
+            <button class="button volume-down-button" data-command="keypress/volumedown">Vol -</button>
+            <button class="button volume-up-button" data-command="keypress/volumeup">Vol +</button>
+        </div>
+        <br><br>
+        <div class="button-row">
+            <button class="button channel-button" data-command="launch/12">Netflix</button>
+        </div>
+        <div class="button-row">
+            <button class="button channel-button" data-command="launch/13">Prime</button>
+        </div>
+        <div class="button-row">
+            <button class="button channel-button" data-command="launch/61322">Max</button>
+        </div>
+        <div class="button-row">
+            <button class="button channel-button" data-command="launch/140474">DirecTV</button>
+        </div>
+        <div class="button-row">
+            <button class="button channel-button" data-command="launch/2285">Hulu</button>
+        </div>
+        <div class="button-row">
+            <button class="button channel-button" data-command="launch/291097">Disney</button>
+        </div>
+        <div class="button-row">
+            <button class="button channel-button" data-command="launch/149733">Boomerang</button>
         </div>
         <div class="feedback-message" id="feedback-message"></div>
         <a class="device-link" href="/">Back to Device Selection</a>
+        <br>
     </div>
-
+     <br><br>
     <script>
         // Function to send command to Roku device
-        function sendCommand(command) {
-            const ipAddress = '192.168.110.16'; // Replace with the IP address of your Roku device
-            fetch(`http://${ipAddress}:8060/keypress/${command}`, {
+        function sendCommand(command, ipAddress) {
+            fetch(`http://${ipAddress}:8060/${command}`, {
                 method: 'POST',
+                mode: 'no-cors',
             })
             .then(response => {
                 if (response.status === 200) {
-                    console.log(`Command '${command}' sent successfully!`);
+                    console.log(`Command '${command}' sent successfully to ${ipAddress}!`);
                 } else {
-                    console.error(`Failed to send command '${command}'. Response code: ${response.status}`);
+                    console.error(`Failed to send command '${command}' to ${ipAddress}. Response code: ${response.status}`);
                 }
             })
             .catch(error => {
@@ -53,11 +80,15 @@
             });
         }
 
+        // Extract the IP address from the current URL
+        const url = window.location.href;
+        const ipAddress = url.split('/').pop();
+
         // Add event listeners to buttons
         document.querySelectorAll('.button').forEach(button => {
             button.addEventListener('click', () => {
                 const command = button.getAttribute('data-command');
-                sendCommand(command);
+                sendCommand(command, ipAddress);
             });
         });
 
@@ -65,37 +96,38 @@
         document.addEventListener('keydown', event => {
             switch (event.key.toLowerCase()) {
                 case 'w':
-                    sendCommand('up');
+                    sendCommand('keypress/up', ipAddress);
                     break;
                 case 's':
-                    sendCommand('down');
+                    sendCommand('keypress/down', ipAddress);
                     break;
                 case 'a':
-                    sendCommand('left');
+                    sendCommand('keypress/left', ipAddress);
                     break;
                 case 'd':
-                    sendCommand('right');
+                    sendCommand('keypress/right', ipAddress);
                     break;
                 case 'f':
-                    sendCommand('select');
+                    sendCommand('keypress/select', ipAddress);
                     break;
                 case '1':
-                    sendCommand('volumemute');
+                    sendCommand('keypress/volumemute', ipAddress);
                     break;
                 case '2':
-                    sendCommand('volumedown');
+                    sendCommand('keypress/volumedown', ipAddress);
                     break;
                 case '3':
-                    sendCommand('volumeup');
+                    sendCommand('keypress/volumeup', ipAddress);
                     break;
                 case 'q':
-                    sendCommand('back');
+                    sendCommand('keypress/back', ipAddress);
                     break;
                 default:
                     break;
             }
         });
     </script>
+
 
 </body>
 </html>

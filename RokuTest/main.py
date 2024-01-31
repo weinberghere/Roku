@@ -26,8 +26,11 @@ ROKU_COMMANDS = {
     'replay': 'InstantReplay',
     'info': 'Info',
     'backspace': 'Backspace',
-    'search': 'Search'
-    # ... add more commands as needed ...
+    'search': 'Search',
+    'netflix': 'launch/12',
+    'prime': 'launch/13',
+    'max': 'launch/61322',
+    'directv': 'launch/140474'
 }
 
 
@@ -111,4 +114,4 @@ def remote(device_ip):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

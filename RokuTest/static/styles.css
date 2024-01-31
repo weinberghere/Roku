@@ -1,1 +1,118 @@
-i
+/* Reset some default browser styles */
+body, h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+    background-color: #007BFF;
+    color: white;
+}
+
+.remote-container {
+    width: 300px;
+    background-color: #333;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.button {
+    margin: 5px 0;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    width: 80%;
+    padding: 15px 30px; /* Increase the button height and add horizontal padding */
+}
+
+.button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.power-button {
+    background-color: #e30b13;
+}
+
+.power-button:hover {
+    background-color: #a1080c; /* Darker red on hover */
+}
+
+.back-button,
+.home-button,
+.up-button,
+.left-button,
+.ok-button,
+.right-button,
+.down-button,
+.rewind-button,
+.play-button,
+.forward-button,
+.volume-down-button,
+.volume-up-button,
+.special-button {
+    background-color: #404040;
+    padding: 15px 30px; /* Increase horizontal padding */
+}
+
+.special-button:hover {
+    background-color: #1f1f1f; /* Darker gray on hover */
+}
+
+.ok-button {
+    background-color: #6f42c1;
+}
+
+.ok-button:hover {
+    background-color: #4a2b80; /* Darker purple on hover */
+}
+
+/* Add a class for channel buttons and set their background color */
+.channel-button {
+    background-color: #6f42c1; /* Purple color */
+}
+
+.channel-button:hover {
+    background-color: #4a2b80; /* Darker purple on hover */
+}
+
+.button-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.feedback-message {
+    text-align: center;
+    margin-top: 10px;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.device-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.device-link:hover {
+    text-decoration: underline;
+}
